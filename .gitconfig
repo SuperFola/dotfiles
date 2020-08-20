@@ -1,0 +1,5 @@
+[user]
+	email = lexplt.dev@gmail.com
+	name = Alexandre Plateau
+[core]
+	autocrlf = false
