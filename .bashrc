@@ -60,8 +60,14 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    if [ $STY ]; then
+        PS1='\033[0;31m[screen ${STY}]\033[0m '$PS1
+    fi
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    if [ $STY ]; then
+        PS1='[screen ${STY}] '$PS1
+    fi
 fi
 unset color_prompt force_color_prompt
 
