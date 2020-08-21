@@ -17,7 +17,7 @@ alias commit='git commit -m'
 alias log='git log --oneline -n'
 alias matrix='cols=$(($(tput cols) / 5 - 1)) ; echo -e "\e[32m"; while :; do for i in $(seq 1 $cols); do r="$(($RANDOM % 2))"; if [[ $(($RANDOM % 5)) == 1 ]]; then if [[ $(($RANDOM % 4)) == 1 ]]; then v+="\e[1m $r   "; else v+="\e[2m $r   "; fi; else v+="     "; fi; done; echo -e "$v"; v=""; done'
 alias nano='nano -gEScl -T4'
-alias ls-pkg-size='dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -nr'
+alias ls-pkg-size='dpkg-query -Wf '"'"'${Installed-Size}\t${Package}\n'"'"' | sort -nr'
 alias prettyjson='python -m json.tool'
 
 # on WSL, nodejs and npm are in ~/.node
