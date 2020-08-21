@@ -21,6 +21,13 @@ autocmd vimenter * NERDTree                            " launch nerdtree automat
 let g:airline#extensions#tabline#enabled = 1           " display all buffer in airline if we have only 1 tab
 let g:airline#extensions#tabline#left_sep = ' '        " buffer separator
 let g:airline#extensions#tabline#left_alt_sep = '|'    " alt buffer separator
+" git gutter
+function! GitStatus()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    return printf('+%d ~%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
+set updatetime=100
 " ----------------- plugins config end    ------------------
 
 set expandtab               " expand tabs into spaces
