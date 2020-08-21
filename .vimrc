@@ -9,6 +9,7 @@ endif
 call plug#begin()
 Plug 'flazz/vim-colorschemes'                         " change colorscheme with :colors name
 Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'} " proper file explorer inside vim
+Plug 'vim-airline/vim-airline'                        " better status line
 call plug#end()
 
 " ----------------- plugins configuration ------------------
