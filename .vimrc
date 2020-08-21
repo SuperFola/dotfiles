@@ -10,10 +10,17 @@ call plug#begin()
 Plug 'flazz/vim-colorschemes'                         " change colorscheme with :colors name
 Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'} " proper file explorer inside vim
 Plug 'vim-airline/vim-airline'                        " better status line
+Plug 'airblade/vim-gitgutter'                         " git integration in editor
 call plug#end()
 
 " ----------------- plugins configuration ------------------
+" nerdtree
 let NERDTreeIgnore=['\.pyc$', '__pycache__', 'node_modules']
+autocmd vimenter * NERDTree                            " launch nerdtree automatically when vim starts
+" airline
+let g:airline#extensions#tabline#enabled = 1           " display all buffer in airline if we have only 1 tab
+let g:airline#extensions#tabline#left_sep = ' '        " buffer separator
+let g:airline#extensions#tabline#left_alt_sep = '|'    " alt buffer separator
 " ----------------- plugins config end    ------------------
 
 set expandtab               " expand tabs into spaces
