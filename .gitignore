@@ -5,6 +5,7 @@
 !.profile
 !.bash-git-prompt/
 !.bash-git-prompt/*
+!.bash-git-prompt/**/*
 !.selected_editor
 !.gitconfig
 !.gitignore
