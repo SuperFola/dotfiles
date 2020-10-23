@@ -16,7 +16,7 @@ call plug#end()
 " ----------------- plugins configuration ------------------
 " nerdtree
 let NERDTreeIgnore=['\.pyc$', '__pycache__', 'node_modules']
-autocmd vimenter * NERDTree                            " launch nerdtree automatically when vim starts
+" autocmd vimenter * NERDTree                            " launch nerdtree automatically when vim starts
 " airline
 let g:airline#extensions#tabline#enabled = 1           " display all buffer in airline if we have only 1 tab
 let g:airline#extensions#tabline#left_sep = ' '        " buffer separator

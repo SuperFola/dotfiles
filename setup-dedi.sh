@@ -25,6 +25,9 @@ make_dotfiles() {
     if [ -f .selected_editor ]; then rm .selected_editor; fi
     ln -s dotfiles/.selected_editor .selected_editor
 
+    if [ -f /etc/issue.net ]; then mv /etc/issue.net /etc/issue.net.old fi
+    ln -s dotfiles/issue.net /etc/issue.net
+
     source .bashrc
 }
 
