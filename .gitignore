@@ -11,4 +11,5 @@
 !.gitignore
 !.vim/
 !.vim/**/*
+!setup-dedi.sh
 .vim/.git/
