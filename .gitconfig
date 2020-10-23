@@ -3,3 +3,5 @@
 	name = Alexandre Plateau
 [core]
 	autocrlf = false
+[push]
+	default = matching
