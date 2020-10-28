@@ -69,7 +69,7 @@ Cyan='\033[0;36m'
 White='\033[0;37m'
 
 if [ "$color_prompt" = yes ]; then
-    PS1="[${Green}\T\[$(tput sgr0)\]${Color_Off}] ${debian_chroot:+($debian_chroot)}"
+    PS1="[${Green}\A\[$(tput sgr0)\]${Color_Off}] ${debian_chroot:+($debian_chroot)}"
     if [ "$(whoami)" = "root" ]; then
         PS1="${PS1}${Purple}\u@\h${Color_Off}:${Cyan}\w${Color_Off}$ "
     else
