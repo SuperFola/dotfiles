@@ -42,22 +42,6 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
-
 Color_Off='\033[0m'
 Black='\033[0;30m'
 Red='\033[0;31m'
@@ -68,28 +52,59 @@ Purple='\033[0;35m'
 Cyan='\033[0;36m'
 White='\033[0;37m'
 
-if [ "$color_prompt" = yes ]; then
-    PS1="[${Green}\A\[$(tput sgr0)\]${Color_Off}] ${debian_chroot:+($debian_chroot)}"
-    if [ "$(whoami)" = "root" ]; then
-        PS1="${PS1}${Purple}\u@\h${Color_Off}:${Cyan}\w${Color_Off}$ "
-    else
-        PS1="${PS1}${Cyan}\u@\h${Color_Off}:${Cyan}\w${Color_Off}$ "
-    fi
-    if [ $STY ]; then
-        PS1="${Red}[screen ${STY}]${Color_Off} ${PS1}"
-    fi
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    if [ $STY ]; then
-        PS1='[screen ${STY}] '$PS1
-    fi
-fi
-unset color_prompt force_color_prompt
+function prompt() {
+    local ps1=""
 
-#if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
-#    GIT_PROMPT_ONLY_IN_REPO=1
-#    source $HOME/.bash-git-prompt/gitprompt.sh
-#fi
+    # standard prompt
+    ps1="[${Green}\A\[$(tput sgr0)\]${Color_Off}] ${debian_chroot:+($debian_chroot)}"
+    if [[ `whoami` == root ]]; then
+        ps1="${ps1}${Purple}\u@\h${Color_Off}:${Cyan}\w${Color_Off}\n"
+    else
+        ps1="${ps1}${Cyan}\u@\h${Color_Off}:${Cyan}\w${Color_Off}\n"
+    fi
+    # adding screen status if we are in a screen
+    if [ $STY ]; then
+        ps1="${Red}[screen ${STY}]${Color_Off} ${ps1}"
+    fi
+
+    # git status
+    local git_status="`git status -unormal 2>&1`"
+    if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
+        if [[ "$git_status" =~ nothing\ to\ commit ]]; then
+            local ansi=$Green
+        elif [[ "$git_status" =~ nothing\ added\ to\ commit\ but\ untracked\ files\ present ]]; then
+            local ansi=$Red
+        else
+            local ansi=$Yellow
+        fi
+
+        if [[ "$git_status" =~ On\ branch\ ([^[:space:]]+) ]]; then
+            branch=${BASH_REMATCH[1]}
+        else
+            # detached head
+            branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null || echo HEAD`)"
+        fi
+
+        ps1="${ps1}[${ansi}${branch}${Color_Off}]"
+    fi
+
+    echo -n $ps1
+}
+
+function _retcode() {
+    # return code of the last command
+    local retcode="$?"
+    if [[ $retcode == 0 ]]; then
+        retcode="${Green}✔${Color_Off}"
+    else
+        retcode="${Red}✖${retcode}${Color_Off}"
+    fi
+
+    echo -n $retcode
+}
+
+export PROMPT_COMMAND='export PS1="$(_retcode) $(prompt) ";'
+unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
