@@ -11,6 +11,8 @@ Plug 'flazz/vim-colorschemes'                         " change colorscheme with 
 Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'} " proper file explorer inside vim
 Plug 'vim-airline/vim-airline'                        " better status line
 Plug 'airblade/vim-gitgutter'                         " git integration in editor
+Plug 'luochen1990/rainbow'                            " rainbow parentheses improved
+Plug 'dominikduda/vim_current_word'                   " highlight occurences of the current word
 call plug#end()
 
 " ----------------- plugins configuration ------------------
@@ -28,6 +30,11 @@ function! GitStatus()
 endfunction
 set statusline+=%{GitStatus()}
 set updatetime=100
+" rainbow
+let g:rainbow_active = 1
+" vim_current_word
+let g:vim_current_word#highlight_twins = 1
+let g:vim_current_word#highlight_current_word = 1
 " ----------------- plugins config end    ------------------
 
 set expandtab               " expand tabs into spaces
