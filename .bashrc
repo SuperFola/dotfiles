@@ -86,8 +86,11 @@ function prompt() {
         # number of commits ahed
         local ahead=""
         if [[ "$git_status" =~ Your\ branch\ is\ ahead\ of ]]; then
-            local count="`git log --oneline "$(git log --oneline -n 1 | cut -c -7)...$(git rev-parse origin/master | cut -c -7)" | wc -l`"
-            ahead="↑${count}"
+            local git_log_1line="`git log --oneline`"
+            local origin_commit="`git rev-parse origin/master | cut -c -7`"
+            local last_commit="`echo -e \"$git_log_1line\" | head -n 1 | cut -c -7`"
+            local count="`git log --oneline ${last_commit}...${origin_commit} | wc -l`"
+            ahead=" ↑${count}"
         fi
 
         # count modified/deleted/untracked files
@@ -115,9 +118,9 @@ function prompt() {
         local files="${files_status} | ${afiles_status}"
 
         if ! [[ "$git_status" =~ nothing\ to\ commit ]]; then
-            ps1="${ps1}[${branch} ${files} ${ahead}]"
+            ps1="${ps1}[${branch} ${files}${ahead}]"
         else
-            ps1="${ps1}[$branch $ahead]"
+            ps1="${ps1}[${branch}${ahead}]"
         fi
     else
         ps1="${ps1}$"
