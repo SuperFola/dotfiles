@@ -83,6 +83,13 @@ function prompt() {
             local ansi=$Yellow
         fi
 
+        # number of commits ahed
+        local ahead=""
+        if [[ "$git_status" =~ Your\ branch\ is\ ahead\ of ]]; then
+            local count="`git log --oneline "$(git log --oneline -n 1 | cut -c -7)...$(git rev-parse origin/master | cut -c -7)" | wc -l`"
+            ahead="↑${count}"
+        fi
+
         # count modified/deleted/untracked files
         status_sb="`git status -sb 2>&1`"
         local modified="~`echo -e \"$status_sb\" | grep -e '^[[:print:]]M' | wc -l`"
@@ -105,11 +112,12 @@ function prompt() {
         branch="${ansi}${branch}${Color_Off}"
         local files_status="${Red}${untracked} ${modified} ${deleted}${Color_Off}"
         local afiles_status="${Green}${auntracked} ${amodified} ${adeleted}${Color_Off}"
+        local files="${files_status} | ${afiles_status}"
 
         if ! [[ "$git_status" =~ nothing\ to\ commit ]]; then
-            ps1="${ps1}[${branch} ${files_status} | ${afiles_status}]"
+            ps1="${ps1}[${branch} ${files} ${ahead}]"
         else
-            ps1="${ps1}[$branch]"
+            ps1="${ps1}[$branch $ahead]"
         fi
     else
         ps1="${ps1}$"
