@@ -105,7 +105,10 @@ function prompt() {
         branch="${ansi}${branch}${Color_Off}"
         local files_status="${Red}${untracked} ${modified} ${deleted}${Color_Off}"
         local afiles_status="${Green}${auntracked} ${amodified} ${adeleted}${Color_Off}"
-        ps1="${ps1}[${branch} ${files_status} | ${afiles_status}]"
+
+        if ! [[ "$git_status" =~ nothing\ to\ commit ]]; then
+            ps1="${ps1}[${branch} ${files_status} | ${afiles_status}]"
+        fi
     else
         ps1="${ps1}$"
     fi
