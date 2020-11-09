@@ -69,15 +69,31 @@ function prompt() {
 
     # git status
     local git_status="`git status -unormal 2>&1`"
-    if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
+    if ! [[ "$git_status" =~ not\ a\ git\ repo ]]; then
+        # we are in a git repository
+
         if [[ "$git_status" =~ nothing\ to\ commit ]]; then
+            # no changes
             local ansi=$Green
         elif [[ "$git_status" =~ nothing\ added\ to\ commit\ but\ untracked\ files\ present ]]; then
+            # untracked files
             local ansi=$Red
         else
+            # modifications + maybe untracked
             local ansi=$Yellow
         fi
 
+        # count modified/deleted/untracked files
+        status_sb="`git status -sb 2>&1`"
+        local modified="~`echo -e \"$status_sb\" | grep -e '^[[:print:]]M' | wc -l`"
+        local amodified="~`echo -e \"$status_sb\" | grep -e '^M' | wc -l`"
+        local deleted="-`echo -e \"$status_sb\" | grep -e '^[[:print:]]D' | wc -l`"
+        local adeleted="-`echo -e \"$status_sb\" | grep -e '^D' | wc -l`"
+        local untracked="+`echo -e \"$status_sb\" | grep -e '^??' | wc -l`"
+        local auntracked="+`echo -e \"$status_sb\" | grep -e '^A' | wc -l`"
+        unset status_sb
+
+        # get branch name
         if [[ "$git_status" =~ On\ branch\ ([^[:space:]]+) ]]; then
             branch=${BASH_REMATCH[1]}
         else
@@ -85,9 +101,16 @@ function prompt() {
             branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null || echo HEAD`)"
         fi
 
-        ps1="${ps1}[${ansi}${branch}${Color_Off}]"
+        # set prompt
+        branch="${ansi}${branch}${Color_Off}"
+        local files_status="${Red}${untracked} ${modified} ${deleted}${Color_Off}"
+        local afiles_status="${Green}${auntracked} ${amodified} ${adeleted}${Color_Off}"
+        ps1="${ps1}[${branch} ${files_status} | ${afiles_status}]"
+    else
+        ps1="${ps1}$"
     fi
 
+    # write prompt with -n (no trailing new line)
     echo -n $ps1
 }
 
