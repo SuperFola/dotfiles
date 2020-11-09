@@ -13,6 +13,7 @@ Plug 'vim-airline/vim-airline'                        " better status line
 Plug 'airblade/vim-gitgutter'                         " git integration in editor
 Plug 'luochen1990/rainbow'                            " rainbow parentheses improved
 Plug 'dominikduda/vim_current_word'                   " highlight occurences of the current word
+Plug 'wafelack/Ark.vim'                               " arkscript syntactic coloration
 call plug#end()
 
 " ----------------- plugins configuration ------------------
@@ -51,6 +52,8 @@ set number                  " hybrid mode when used with rnu
 set nowrap                  " don't wrap statements
 set laststatus=2            " show status line even for 1 file
 set mouse=nv                " allow mouse in normal and visual modes
+set listchars=tab:>-,trail:~,extends:>,precedes:< " display trailing characters
+set list
 
 syntax on
 
