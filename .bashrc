@@ -83,18 +83,15 @@ function prompt() {
             local ansi=$Yellow
         fi
 
+        status_sb="`git status -sb 2>&1`"
+
         # number of commits ahed
         local ahead=""
         if [[ "$git_status" =~ Your\ branch\ is\ ahead\ of ]]; then
-            local git_log_1line="`git log --oneline`"
-            local origin_commit="`git rev-parse origin/master | cut -c -7`"
-            local last_commit="`echo -e \"$git_log_1line\" | head -n 1 | cut -c -7`"
-            local count="`git log --oneline ${last_commit}...${origin_commit} | wc -l`"
-            ahead=" ↑${count}"
+            ahead=" ↑`echo -e \"$status_sb\" | head -n 1 | egrep -o \"ahead [[:digit:]]+\" | cut -c 7-`"
         fi
 
         # count modified/deleted/untracked files
-        status_sb="`git status -sb 2>&1`"
         local modified="~`echo -e \"$status_sb\" | grep -e '^[[:print:]]M' | wc -l`"
         local amodified="~`echo -e \"$status_sb\" | grep -e '^M' | wc -l`"
         local deleted="-`echo -e \"$status_sb\" | grep -e '^[[:print:]]D' | wc -l`"
