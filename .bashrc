@@ -108,6 +108,8 @@ function prompt() {
 
         if ! [[ "$git_status" =~ nothing\ to\ commit ]]; then
             ps1="${ps1}[${branch} ${files_status} | ${afiles_status}]"
+        else
+            ps1="${ps1}[$branch]"
         fi
     else
         ps1="${ps1}$"
