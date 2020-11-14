@@ -7,13 +7,14 @@ endif
 
 " load vim-plug
 call plug#begin()
-Plug 'flazz/vim-colorschemes'                         " change colorscheme with :colors name
-Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'} " proper file explorer inside vim
-Plug 'vim-airline/vim-airline'                        " better status line
-Plug 'airblade/vim-gitgutter'                         " git integration in editor
-Plug 'luochen1990/rainbow'                            " rainbow parentheses improved
-Plug 'dominikduda/vim_current_word'                   " highlight occurences of the current word
-Plug 'wafelack/Ark.vim'                               " arkscript syntactic coloration
+Plug 'flazz/vim-colorschemes'                           " change colorscheme with :colors name
+Plug 'scrooloose/nerdtree' , {'on': 'NERDTreeToggle'}   " proper file explorer inside vim
+Plug 'vim-airline/vim-airline'                          " better status line
+Plug 'airblade/vim-gitgutter'                           " git integration in editor
+Plug 'luochen1990/rainbow'                              " rainbow parentheses improved
+Plug 'dominikduda/vim_current_word'                     " highlight occurences of the current word
+Plug 'wafelack/Ark.vim'                                 " arkscript syntactic coloration
+Plug 'wakatime/vim-wakatime'                            " wakatime integration
 call plug#end()
 
 " ----------------- plugins configuration ------------------
