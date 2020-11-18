@@ -37,6 +37,8 @@ let g:rainbow_active = 1
 " vim_current_word
 let g:vim_current_word#highlight_twins = 1
 let g:vim_current_word#highlight_current_word = 1
+" wakatime
+let g:wakatime_PythonBinary='/usr/bin/python3'
 " ----------------- plugins config end    ------------------
 
 set expandtab               " expand tabs into spaces
@@ -70,3 +72,7 @@ filetype plugin indent on
 
 " peachpuff, slate
 colorscheme slate 
+
+" remaps
+let mapleader="&"
+nnoremap <leader>i mmgg=G`m
