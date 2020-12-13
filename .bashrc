@@ -123,6 +123,11 @@ function prompt() {
         ps1="${ps1}$"
     fi
 
+    # handle virtual environments
+    if [[ $VIRTUAL_ENV != '' ]]; then
+        ps1="($(basename $VIRTUAL_ENV)) ${ps1}"
+    fi
+
     # write prompt with -n (no trailing new line)
     echo -n $ps1
 }
