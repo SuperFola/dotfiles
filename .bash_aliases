@@ -40,6 +40,7 @@ alias log='git log --oneline -n'
 alias nano='nano -gEScl -T4'
 alias ls-pkg-size='dpkg-query -Wf '"'"'${Installed-Size}\t${Package}\n'"'"' | sort -nr'
 alias prettyjson='python -m json.tool'
+alias guitar-hero='git log --graph --oneline --decorate --all'
 
 # on WSL, nodejs and npm are in ~/.node
 # and the path must be changed to use my firefox as a browser
