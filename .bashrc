@@ -4,6 +4,8 @@
 
 umask 0022
 
+export LANGUAGE="en_US:en"
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
