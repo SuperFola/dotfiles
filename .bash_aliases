@@ -20,6 +20,14 @@ alias nano='nano -gEScl -T4'
 alias ls-pkg-size='dpkg-query -Wf '"'"'${Installed-Size}\t${Package}\n'"'"' | sort -nr'
 alias prettyjson='python -m json.tool'
 
+# docker
+alias containerip='docker inspect -f '"'"'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"'"
+alias cleardockerlogs='docker ps -q | xargs -I % sh -c '"'"'echo "" > $(docker inspect --format={{.LogPath}} %)'"'"
+
+if [[ `which batcat` != "" ]]; then
+    alias bat='batcat'
+fi
+
 # on WSL, nodejs and npm are in ~/.node
 # and the path must be changed to use my firefox as a browser
 if grep -qEi "(microsoft|wsl)" /proc/version; then
@@ -29,3 +37,6 @@ if grep -qEi "(microsoft|wsl)" /proc/version; then
     export PATH="$PATH:/mnt/c/Program Files/Mozilla Firefox"
     export BROWSER=firefox.exe
 fi
+
+export ARKSCRIPT_PATH="/root/ark/"
+export PATH="$PATH:/root/ark/"

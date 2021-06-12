@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/home/folaefolc/git/elranet/node_modules'
 let g:netrw_dirhist_2='/home/folaefolc/git/cipher_swbits/swb/__pycache__'
 let g:netrw_dirhist_3='/root/docker/proxy/conf.d'
+let g:netrw_dirhist_4='/root/.git/modules/git/donotsend'
+let g:netrw_dirhist_5='/root/scripts/defense'
+let g:netrw_dirhist_6='/root/scripts'
